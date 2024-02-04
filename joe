@@ -21,6 +21,10 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 
     local currencyValue = dataFolder.Currency.Value
 
+    local elapsedTime = tick() - getgenv().startTime
+    local elapsedMinutes = math.floor(elapsedTime / 60)
+    local elapsedSeconds = elapsedTime % 60
+
     local data = {
         embeds = {
             {
@@ -29,9 +33,10 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(getgenv().startingCash) ..
-                              "\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
-                              "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash)
+                description = "**Cash Info**\n\n**STARTING WALLET:** " .. formatCurrency(getgenv().startingCash) ..
+                              "\n\n**CURRENT WALLET:** " .. formatCurrency(currencyValue) ..
+                              "\n\n**EARNED:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
+                              "\n\n**TIME ELAPSED:** " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
             }
         }
     }
@@ -56,3 +61,7 @@ end
 RunService.Heartbeat:Connect(function(deltaTime)
     sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end)
+
+-- Set the start time
+getgenv().startTime = tick()
+getgenv().startingCash = dataFolder.Currency.Value
