@@ -4,7 +4,6 @@ local HttpService = game:GetService("HttpService")
 getgenv().startTime = tick()
 getgenv().lastWebhookData = nil
 getgenv().cumulativeEarnedCash = 0
-getgenv().startingCash = dataFolder.Currency.Value
 
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
@@ -20,6 +19,11 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     end
 
     local currencyValue = dataFolder.Currency.Value
+    local startingCash = getgenv().lastWebhookData and getgenv().lastWebhookData.currentCash or currencyValue
+
+    local earnedCash = currencyValue - startingCash
+    -- Use cumulativeEarnedCash directly without adding earnedCash to it
+    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash
 
     local elapsedTime = tick() - getgenv().startTime
     local elapsedMinutes = math.floor(elapsedTime / 60)
@@ -33,7 +37,7 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(getgenv().startingCash) ..
+                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(startingCash) ..
                               "\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
                               "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
                               "\n\nTime Elapsed: " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
@@ -64,9 +68,5 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end
 
 RunService.Heartbeat:Connect(function(deltaTime)
-    if tick() - getgenv().lastExecutionTime >= 10 then
-        sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-        getgenv().lastExecutionTime = tick()
-        getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + dataFolder.Currency.Value
-    end
+    sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end)
