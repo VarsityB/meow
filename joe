@@ -34,8 +34,8 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                     url = serverThumbnailUrl
                 },
                 description = "**Cash Info**\n\n**STARTING WALLET:** " .. formatCurrency(getgenv().startingCash) ..
-                              "\n\n**CURRENT WALLET:** " .. formatCurrency(currencyValue) ..
-                              "\n\n**EARNED:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
+                              "\n\n**CURRENT CASH:** " .. formatCurrency(currencyValue) ..
+                              "\n\n**EARNED CASH:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
                               "\n\n**TIME ELAPSED:** " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
             }
         }
@@ -58,14 +58,10 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     HttpService:RequestAsync(request)
 end
 
-RunService.Heartbeat:Connect(function(deltaTime)
-    if tick() - getgenv().lastExecutionTime >= 10 then
-        sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-        getgenv().lastExecutionTime = tick()
-    end
-end)
+while wait(5) do
+    sendEmbedWithServerThumbnailAndCurrencyToDiscord()
+end
 
 -- Set the start time
 getgenv().startTime = tick()
 getgenv().startingCash = dataFolder.Currency.Value
-getgenv().lastExecutionTime = tick()
