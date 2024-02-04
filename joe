@@ -59,7 +59,7 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end
 
 RunService.Heartbeat:Connect(function(deltaTime)
-    if tick() - getgenv().lastExecutionTime >= 5 then
+    if tick() - getgenv().lastExecutionTime >= 10 then
         sendEmbedWithServerThumbnailAndCurrencyToDiscord()
         getgenv().lastExecutionTime = tick()
     end
