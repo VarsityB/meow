@@ -33,9 +33,9 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "**Cash Info**\n\n**STARTING WALLET:** " .. formatCurrency(getgenv().startingCash) ..
-                              "\n\n**CURRENT WALLET:** " .. formatCurrency(currencyValue) ..
-                              "\n\n**EARNED:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
+                description = "**Cash Info**\n\n**STARTING CASH:** " .. formatCurrency(getgenv().startingCash) ..
+                              "\n\n**CURRENT CASH:** " .. formatCurrency(currencyValue) ..
+                              "\n\n**EARNED CASH:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
                               "\n\n**TIME ELAPSED:** " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
             }
         }
