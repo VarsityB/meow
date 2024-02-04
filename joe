@@ -19,15 +19,16 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     end
 
     local currencyValue = dataFolder.Currency.Value
-    local startingCash = getgenv().lastWebhookData and getgenv().lastWebhookData.currentCash or currencyValue
-
-    -- Calculate earnedCash based on the difference from the last webhook
-    local earnedCash = currencyValue - startingCash
-    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
 
     local elapsedTime = tick() - getgenv().startTime
     local elapsedMinutes = math.floor(elapsedTime / 60)
     local elapsedSeconds = elapsedTime % 60
+
+    local startingCash = getgenv().lastWebhookData and getgenv().lastWebhookData.startingCash or currencyValue
+
+    -- Calculate earnedCash based on the difference from the starting cash
+    local earnedCash = currencyValue - startingCash
+    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
 
     local data = {
         embeds = {
@@ -58,10 +59,12 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
         Body = encodedData
     }
 
-    -- Update last webhook data
-    getgenv().lastWebhookData = {
-        currentCash = currencyValue
-    }
+    -- Update last webhook data only if it's not set
+    if not getgenv().lastWebhookData then
+        getgenv().lastWebhookData = {
+            startingCash = currencyValue
+        }
+    end
 
     -- Send the embed message
     HttpService:RequestAsync(request)
