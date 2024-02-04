@@ -21,9 +21,9 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     local currencyValue = dataFolder.Currency.Value
     local startingCash = getgenv().lastWebhookData and getgenv().lastWebhookData.currentCash or currencyValue
 
-    local earnedCash = currencyValue - startingCash
-    -- Use cumulativeEarnedCash directly without adding earnedCash to it
-    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash
+    -- earnedCash remains zero, indicating no change
+    local earnedCash = 0
+    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
 
     local elapsedTime = tick() - getgenv().startTime
     local elapsedMinutes = math.floor(elapsedTime / 60)
