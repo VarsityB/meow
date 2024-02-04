@@ -3,6 +3,7 @@ local HttpService = game:GetService("HttpService")
 
 getgenv().webhook = nil
 getgenv().cumulativeEarnedCash = 0
+getgenv().startingCash = 0
 
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
@@ -28,7 +29,8 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "Cash Info\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
+                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(getgenv().startingCash) ..
+                              "\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
                               "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash)
             }
         }
