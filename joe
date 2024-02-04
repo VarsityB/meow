@@ -70,10 +70,6 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     HttpService:RequestAsync(request)
 end
 
-RunService.Heartbeat:Connect(function(deltaTime)
-    sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-end)
-
 -- Delay interval for webhooks (in minutes)
 local webhookDelay = tonumber(getgenv().webhookdelay) or 1  -- Default to 1 minute
 
