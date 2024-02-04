@@ -21,7 +21,7 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 
     local currencyValue = dataFolder.Currency.Value
 
-    local elapsedTime = tick() - getgenv().startTime
+    local elapsedTime = os.time() - getgenv().startTime
     local elapsedMinutes = math.floor(elapsedTime / 60)
     local elapsedSeconds = elapsedTime % 60
 
@@ -59,15 +59,15 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end
 
 local delayBetweenEmbeds = 5 -- Set the delay in seconds
-local lastExecutionTime = tick()
+local lastExecutionTime = os.time()
 
 RunService.Heartbeat:Connect(function(deltaTime)
-    if tick() - lastExecutionTime >= delayBetweenEmbeds then
+    if os.time() - lastExecutionTime >= delayBetweenEmbeds then
         sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-        lastExecutionTime = tick()
+        lastExecutionTime = os.time()
     end
 end)
 
 -- Set the start time
-getgenv().startTime = tick()
+getgenv().startTime = os.time()
 getgenv().startingCash = dataFolder.Currency.Value
