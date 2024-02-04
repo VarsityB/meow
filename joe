@@ -1,20 +1,17 @@
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
-getgenv().startTime = tick()
-getgenv().lastWebhookData = nil
+getgenv().webhook = nil
 getgenv().cumulativeEarnedCash = 0
 
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
 
-local currencyTextLabel = script.Parent
-
--- Store the initial cash value
-getgenv().initialCash = dataFolder.Currency.Value
-
 local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-    local webhookUrl = getgenv().webhook or ""
+    if not getgenv().webhook then
+        return
+    end
+
     local serverThumbnailUrl = "https://cdn.discordapp.com/icons/1193980576013750433/dbb27f6ecf1f5e6cdffeddd46f4cf717.png?size=1024"
 
     local formatCurrency = function(amount)
@@ -22,14 +19,6 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     end
 
     local currencyValue = dataFolder.Currency.Value
-    local startingCash = getgenv().initialCash
-
-    local earnedCash = currencyValue - startingCash
-    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
-
-    local elapsedTime = tick() - getgenv().startTime
-    local elapsedMinutes = math.floor(elapsedTime / 60)
-    local elapsedSeconds = elapsedTime % 60
 
     local data = {
         embeds = {
@@ -39,10 +28,8 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(startingCash) ..
-                              "\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
-                              "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
-                              "\n\nTime Elapsed: " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
+                description = "Cash Info\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
+                              "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash)
             }
         }
     }
@@ -54,25 +41,16 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     local encodedData = HttpService:JSONEncode(data)
 
     local request = {
-        Url = webhookUrl,
+        Url = getgenv().webhook,
         Method = "POST",
         Headers = headers,
         Body = encodedData
-    }
-
-    -- Update last webhook data
-    getgenv().lastWebhookData = {
-        currentCash = currencyValue
     }
 
     -- Send the embed message
     HttpService:RequestAsync(request)
 end
 
-local webhookInterval = 15 * 60  -- 15 minutes in seconds
 RunService.Heartbeat:Connect(function(deltaTime)
-    if tick() - getgenv().startTime >= webhookInterval then
-        sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-        getgenv().startTime = tick()  -- Reset the start time for the next interval
-    end
+    sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end)
