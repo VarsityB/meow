@@ -4,7 +4,6 @@ local HttpService = game:GetService("HttpService")
 getgenv().webhook = nil
 getgenv().cumulativeEarnedCash = 0
 getgenv().startingCash = 0
-getgenv().lastExecutionTime = 0
 
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
@@ -34,9 +33,9 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "**Cash Info**\n\n**STARTING CASH:** " .. formatCurrency(getgenv().startingCash) ..
-                              "\n\n**CURRENT CASH:** " .. formatCurrency(currencyValue) ..
-                              "\n\n**EARNED CASH:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
+                description = "**Cash Info**\n\n**STARTING WALLET:** " .. formatCurrency(getgenv().startingCash) ..
+                              "\n\n**CURRENT WALLET:** " .. formatCurrency(currencyValue) ..
+                              "\n\n**EARNED:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
                               "\n\n**TIME ELAPSED:** " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
             }
         }
@@ -60,7 +59,7 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end
 
 RunService.Heartbeat:Connect(function(deltaTime)
-    if tick() - getgenv().lastExecutionTime >= 10 then
+    if tick() - getgenv().lastExecutionTime >= 5 then
         sendEmbedWithServerThumbnailAndCurrencyToDiscord()
         getgenv().lastExecutionTime = tick()
     end
