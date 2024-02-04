@@ -1,3 +1,5 @@
+https://raw.githubusercontent.com/VarsityB/Autofarm/main/webhookk
+
 loadstring(game:HttpGet('https://raw.githubusercontent.com/VarsityB/Autofarm/main/lowgfx'))()
 
 getgenv().Enabled = true
