@@ -3,7 +3,7 @@ local HttpService = game:GetService("HttpService")
 
 getgenv().webhook = nil
 getgenv().cumulativeEarnedCash = 0
-getgenv().startingCash = 0
+getgenv().startingCash = nil
 
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
@@ -21,7 +21,14 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 
     local currencyValue = dataFolder.Currency.Value
 
-    local elapsedTime = os.time() - getgenv().startTime
+    if getgenv().startingCash == nil then
+        getgenv().startingCash = currencyValue
+    end
+
+    local earnedCash = currencyValue - getgenv().startingCash
+    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
+
+    local elapsedTime = tick() - getgenv().startTime
     local elapsedMinutes = math.floor(elapsedTime / 60)
     local elapsedSeconds = elapsedTime % 60
 
@@ -33,10 +40,10 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
                 thumbnail = {
                     url = serverThumbnailUrl
                 },
-                description = "**Cash Info**\n\n**STARTING WALLET:** " .. formatCurrency(getgenv().startingCash) ..
-                              "\n\n**CURRENT CASH:** " .. formatCurrency(currencyValue) ..
-                              "\n\n**EARNED CASH:** " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
-                              "\n\n**TIME ELAPSED:** " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
+                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(getgenv().startingCash) ..
+                              "\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
+                              "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
+                              "\n\nTime Elapsed: " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
             }
         }
     }
@@ -58,16 +65,9 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     HttpService:RequestAsync(request)
 end
 
-local delayBetweenEmbeds = 5 -- Set the delay in seconds
-local lastExecutionTime = os.time()
-
 RunService.Heartbeat:Connect(function(deltaTime)
-    if os.time() - lastExecutionTime >= delayBetweenEmbeds then
-        sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-        lastExecutionTime = os.time()
-    end
+    sendEmbedWithServerThumbnailAndCurrencyToDiscord()
 end)
 
 -- Set the start time
-getgenv().startTime = os.time()
-getgenv().startingCash = dataFolder.Currency.Value
+getgenv().startTime = tick()
