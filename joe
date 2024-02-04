@@ -58,9 +58,15 @@ local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
     HttpService:RequestAsync(request)
 end
 
-while wait(5) do
-    sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-end
+local delayBetweenEmbeds = 5 -- Set the delay in seconds
+local lastExecutionTime = tick()
+
+RunService.Heartbeat:Connect(function(deltaTime)
+    if tick() - lastExecutionTime >= delayBetweenEmbeds then
+        sendEmbedWithServerThumbnailAndCurrencyToDiscord()
+        lastExecutionTime = tick()
+    end
+end)
 
 -- Set the start time
 getgenv().startTime = tick()
