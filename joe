@@ -1,83 +1,28 @@
-local RunService = game:GetService("RunService")
-local HttpService = game:GetService("HttpService")
+local Link = getgenv().Webhook
 
-getgenv().startTime = tick()
-getgenv().lastWebhookData = nil
-getgenv().cumulativeEarnedCash = 0
+local formatCurrency = function(amount)
+    return string.format("$%s", tostring(amount):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", ""))
+end
 
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
 
-local currencyTextLabel = script.Parent
+local data = {
+    ["content"] = "",
+    ["embeds"] = {{
+        ["title"] = "**Varsitys AutoFarm**",
+        ["description"] = string.format("**Cash Info**\n\n**Starting Cash:** %s\n**Current Cash:** %s\n**Earned Cash:** %s",
+            formatCurrency(getgenv().startingCash or 0),
+            formatCurrency(dataFolder.Currency.Value or 0),
+            formatCurrency(getgenv().cumulativeEarnedCash or 0)
+        ),
+        ["color"] = 0x0088FF, -- Blue color
+    }}
+}
 
-local function sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-    local webhookUrl = getgenv().webhook or ""
-    local serverThumbnailUrl = "https://cdn.discordapp.com/icons/1193980576013750433/dbb27f6ecf1f5e6cdffeddd46f4cf717.png?size=1024"
-
-    local formatCurrency = function(amount)
-        return string.format("$%s", tostring(amount):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", ""))
-    end
-
-    local currencyValue = dataFolder.Currency.Value
-
-    local elapsedTime = tick() - getgenv().startTime
-    local elapsedMinutes = math.floor(elapsedTime / 60)
-    local elapsedSeconds = elapsedTime % 60
-
-    local startingCash = getgenv().lastWebhookData and getgenv().lastWebhookData.startingCash or currencyValue
-
-    -- Calculate earnedCash based on the difference from the starting cash
-    local earnedCash = currencyValue - startingCash
-    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
-
-    local data = {
-        embeds = {
-            {
-                title = "**VARSITYS AUTOFARM**",
-                color = 0x9c8cfa,  -- Light Purple
-                thumbnail = {
-                    url = serverThumbnailUrl
-                },
-                description = "Cash Info\n\nStarting Cash: " .. formatCurrency(startingCash) ..
-                              "\n\nCurrent Cash: " .. formatCurrency(currencyValue) ..
-                              "\n\nEarned Cash: " .. formatCurrency(getgenv().cumulativeEarnedCash) ..
-                              "\n\nTime Elapsed: " .. string.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
-            }
-        }
-    }
-
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-
-    local encodedData = HttpService:JSONEncode(data)
-
-    local request = {
-        Url = webhookUrl,
-        Method = "POST",
-        Headers = headers,
-        Body = encodedData
-    }
-
-    -- Update last webhook data only if it's not set
-    if not getgenv().lastWebhookData then
-        getgenv().lastWebhookData = {
-            startingCash = currencyValue
-        }
-    end
-
-    -- Send the embed message
-    HttpService:RequestAsync(request)
-end
-
--- Set the delay interval for webhooks (in minutes)
-local webhookDelay = tonumber(getgenv().webhookdelay) or 1  -- Default to 1 minute
-local lastExecutionTime = tick()
-
-RunService.Heartbeat:Connect(function(deltaTime)
-    local currentTime = tick()
-    if currentTime - lastExecutionTime >= (webhookDelay * 60) then
-        sendEmbedWithServerThumbnailAndCurrencyToDiscord()
-        lastExecutionTime = currentTime
-    end
-end)
+local response = request({
+    Url = Link,
+    Body = game:GetService("HttpService"):JSONEncode(data),
+    Method = "POST",
+    Headers = {["content-type"] = "application/json"}
+})
