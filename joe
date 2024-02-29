@@ -7,7 +7,7 @@ end
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
 
--- Set startingCash to the initial amount of current cash
+-- Initialize startingCash to the initial amount of current cash
 local startingCash = dataFolder.Currency.Value
 
 -- Initialize cumulativeEarnedCash to 0 if not already set
@@ -36,11 +36,8 @@ local function sendWebhook()
     })
 end
 
--- Send the initial webhook
-sendWebhook()
-
 -- Schedule sending webhooks every 5 seconds
-game:GetService("RunService").Stepped:Connect(function()
+game:GetService("RunService").Heartbeat:Connect(function()
     local currentTime = tick()
     if currentTime - (getgenv().lastWebhookTime or 0) >= 5 then
         sendWebhook()
