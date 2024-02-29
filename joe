@@ -13,16 +13,20 @@ local startingCash = dataFolder.Currency.Value
 -- Initialize cumulativeEarnedCash to 0 if not already set
 getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash or 0
 
--- Function to send Discord webhook
+-- Function to calculate and send Discord webhook
 local function sendWebhook()
+    local currentCash = dataFolder.Currency.Value
+    local earnedCash = currentCash - startingCash
+    getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
+
     local data = {
         ["content"] = "",
         ["embeds"] = {{
             ["title"] = "**Varsitys AutoFarm**",
             ["description"] = string.format("**Cash Info**\n\n**Starting Cash:** %s\n**Current Cash:** %s\n**Earned Cash:** %s",
                 formatCurrency(startingCash),
-                formatCurrency(dataFolder.Currency.Value),
-                formatCurrency(getgenv().cumulativeEarnedCash)
+                formatCurrency(currentCash),
+                formatCurrency(earnedCash)
             ),
             ["color"] = 0x0088FF, -- Blue color
         }}
