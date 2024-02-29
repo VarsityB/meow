@@ -7,14 +7,12 @@ end
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
 
--- Initialize startingCash to the initial amount of current cash
-local startingCash = dataFolder.Currency.Value
-
 -- Initialize cumulativeEarnedCash to 0 if not already set
 getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash or 0
 
 -- Function to calculate and send Discord webhook
 local function sendWebhook()
+    local startingCash = getgenv().startingCash or dataFolder.Currency.Value
     local currentCash = dataFolder.Currency.Value
     local earnedCash = currentCash - startingCash
     getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
@@ -39,6 +37,9 @@ local function sendWebhook()
         Headers = {["content-type"] = "application/json"}
     })
 end
+
+-- Set startingCash to the initial amount of current cash
+getgenv().startingCash = dataFolder.Currency.Value
 
 -- Schedule sending webhooks every 5 seconds
 game:GetService("RunService").Heartbeat:Connect(function()
