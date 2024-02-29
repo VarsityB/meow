@@ -1,12 +1,3 @@
--- Function to set webhook and webhook delay
-local function setWebhookAndDelay(webhook, delay)
-    getgenv().Webhook = webhook
-    getgenv().webhookdelay = delay
-end
-
--- Set webhook and webhook delay
-setWebhookAndDelay("https://discord.com/api/webhooks/1168214541734260816/bi0DfBSqaKNHX-WnL3eY_S-L36nG1kK2jiNmy7XSt2XlOmep95c6CTstAOFZCmVKy6mt", 1)
-
 local Link = getgenv().Webhook
 
 local formatCurrency = function(amount)
@@ -61,11 +52,11 @@ end
 -- Set startingCash to the initial amount of current cash
 getgenv().startingCash = dataFolder.Currency.Value
 
+-- Set webhook delay (in seconds)
+getgenv().webhookdelay = tonumber(getgenv().webhookdelay) or 60  -- Default to 60 seconds (1 minute)
+
 -- Schedule sending webhooks based on the specified delay
-game:GetService("RunService").Heartbeat:Connect(function()
-    local currentTime = tick()
-    if currentTime - getgenv().lastWebhookTime >= (getgenv().webhookdelay * 60) then
-        sendWebhook()
-        getgenv().lastWebhookTime = currentTime
-    end
-end)
+while true do
+    wait(getgenv().webhookdelay)
+    sendWebhook()
+end
