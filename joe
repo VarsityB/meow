@@ -10,6 +10,9 @@ local dataFolder = player:WaitForChild("DataFolder")
 -- Initialize cumulativeEarnedCash to 0 if not already set
 getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash or 0
 
+-- Initialize starting time
+getgenv().startTime = getgenv().startTime or tick()
+
 -- Function to calculate and send Discord webhook
 local function sendWebhook()
     local startingCash = getgenv().startingCash or dataFolder.Currency.Value
@@ -17,14 +20,21 @@ local function sendWebhook()
     local earnedCash = currentCash - startingCash
     getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash + earnedCash
 
+    local elapsedTime = tick() - getgenv().startTime
+    local elapsedMinutes = math.floor(elapsedTime / 60)
+    local elapsedSeconds = elapsedTime % 60
+
     local data = {
         ["content"] = "",
         ["embeds"] = {{
             ["title"] = "**Varsitys AutoFarm**",
-            ["description"] = string.format("**Cash Info**\n\n**Starting Cash:** %s\n**Current Cash:** %s\n**Earned Cash:** %s",
+            ["description"] = string.format(
+                "**Cash Info**\n\n**Starting Cash:** %s\n**Current Cash:** %s\n**Earned Cash:** %s\n\n**Elapsed Time:** %02d:%02d",
                 formatCurrency(startingCash),
                 formatCurrency(currentCash),
-                formatCurrency(earnedCash)
+                formatCurrency(earnedCash),
+                elapsedMinutes,
+                elapsedSeconds
             ),
             ["color"] = 0x0088FF, -- Blue color
         }}
