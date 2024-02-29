@@ -51,10 +51,13 @@ end
 -- Set startingCash to the initial amount of current cash
 getgenv().startingCash = dataFolder.Currency.Value
 
--- Schedule sending webhooks every 5 seconds
+-- Set webhook delay (in minutes)
+getgenv().webhookdelay = tonumber(getgenv().webhookdelay) or 1
+
+-- Schedule sending webhooks based on the specified delay
 game:GetService("RunService").Heartbeat:Connect(function()
     local currentTime = tick()
-    if currentTime - (getgenv().lastWebhookTime or 0) >= 5 then
+    if currentTime - (getgenv().lastWebhookTime or 0) >= (getgenv().webhookdelay * 60) then
         sendWebhook()
         getgenv().lastWebhookTime = currentTime
     end
