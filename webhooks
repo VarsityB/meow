@@ -1,13 +1,5 @@
--- Function to set webhook and webhook delay
-local function setWebhookAndDelay(webhook, delay)
-    getgenv().Webhook = webhook
-    getgenv().webhookdelay = delay
-end
-
--- Set webhook and webhook delay
-setWebhookAndDelay("https://discord.com/api/webhooks/1168214541734260816/bi0DfBSqaKNHX-WnL3eY_S-L36nG1kK2jiNmy7XSt2XlOmep95c6CTstAOFZCmVKy6mt", 1)
-
 local Link = getgenv().Webhook
+local webhookDelay = tonumber(getgenv().webhookdelay) * 60 -- Convert delay from minutes to seconds
 
 local formatCurrency = function(amount)
     return string.format("$%s", tostring(amount):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", ""))
@@ -19,9 +11,8 @@ local dataFolder = player:WaitForChild("DataFolder")
 -- Initialize cumulativeEarnedCash to 0 if not already set
 getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash or 0
 
--- Initialize starting time and lastWebhookTime
+-- Initialize starting time
 getgenv().startTime = getgenv().startTime or tick()
-getgenv().lastWebhookTime = getgenv().lastWebhookTime or getgenv().startTime
 
 -- Function to calculate and send Discord webhook
 local function sendWebhook()
@@ -61,10 +52,10 @@ end
 -- Set startingCash to the initial amount of current cash
 getgenv().startingCash = dataFolder.Currency.Value
 
--- Schedule sending webhooks based on the specified delay
+-- Schedule sending webhooks with delay
 game:GetService("RunService").Heartbeat:Connect(function()
     local currentTime = tick()
-    if currentTime - getgenv().lastWebhookTime >= (getgenv().webhookdelay * 60) then
+    if currentTime - (getgenv().lastWebhookTime or 0) >= webhookDelay then
         sendWebhook()
         getgenv().lastWebhookTime = currentTime
     end
