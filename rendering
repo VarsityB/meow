@@ -1,0 +1,94 @@
+-- rending and stuff
+
+repeat task.wait() until (game:GetService("Players").LocalPlayer.Character:FindFirstChild("FULLY_LOADED_CHAR"))
+game:GetService("RunService"):Set3dRenderingEnabled(false)
+pcall(function() UserSettings().GameSettings.MasterVolume = 0 end)
+pcall(function() settings().Rendering.QualityLevel = "Level01" end)
+
+local decalsyeeted = true
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i, v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    end
+end
+for i, e in pairs(l:GetChildren()) do
+    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+        e.Enabled = false
+    end
+end
+
+-- Put this script inside a LocalScript
+
+local folderPath = {"MAP", "Map"} -- Replace with the path of the folder containing the mesh parts
+local meshNameToRemove = "Meshes/mountain" -- Replace with the name of the mesh parts you want to remove
+
+-- Function to find a folder by path
+local function findFolderByPath(path)
+    local currentFolder = workspace
+
+    for _, folderName in pairs(path) do
+        currentFolder = currentFolder:FindFirstChild(folderName)
+
+        if not currentFolder or not currentFolder:IsA("Folder") then
+            return nil
+        end
+    end
+
+    return currentFolder
+end
+
+-- Function to duplicate all mesh parts within a folder except those with the specified name
+local function duplicateMeshPartsExceptName(folder, name)
+    local duplicateParts = {}
+
+    for _, descendant in pairs(folder:GetDescendants()) do
+        if descendant:IsA("MeshPart") and descendant.Name ~= name then
+            local duplicatePart = descendant:Clone()
+            table.insert(duplicateParts, duplicatePart)
+        end
+    end
+
+    -- Clear the folder
+    folder:ClearAllChildren()
+
+    -- Reparent the duplicated parts back to the folder
+    for _, duplicatePart in pairs(duplicateParts) do
+        duplicatePart.Parent = folder
+    end
+end
+
+-- Get the specified folder by path
+local targetFolder = findFolderByPath(folderPath)
+
+if targetFolder then
+    -- Duplicate all mesh parts within the folder except those with the specified name
+    duplicateMeshPartsExceptName(targetFolder, meshNameToRemove)
+else
+    warn("Folder not found:", table.concat(folderPath, " > "))
+end
