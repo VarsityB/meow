@@ -7,22 +7,43 @@ end
 local player = game.Players.LocalPlayer
 local dataFolder = player:WaitForChild("DataFolder")
 
-local data = {
-    ["content"] = "",
-    ["embeds"] = {{
-        ["title"] = "**Varsitys AutoFarm**",
-        ["description"] = string.format("**Cash Info**\n\n**Starting Cash:** %s\n**Current Cash:** %s\n**Earned Cash:** %s",
-            formatCurrency(getgenv().startingCash or 0),
-            formatCurrency(dataFolder.Currency.Value or 0),
-            formatCurrency(getgenv().cumulativeEarnedCash or 0)
-        ),
-        ["color"] = 0x0088FF, -- Blue color
-    }}
-}
+-- Set startingCash to the initial amount of current cash
+local startingCash = dataFolder.Currency.Value
 
-local response = request({
-    Url = Link,
-    Body = game:GetService("HttpService"):JSONEncode(data),
-    Method = "POST",
-    Headers = {["content-type"] = "application/json"}
-})
+-- Initialize cumulativeEarnedCash to 0 if not already set
+getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash or 0
+
+-- Function to send Discord webhook
+local function sendWebhook()
+    local data = {
+        ["content"] = "",
+        ["embeds"] = {{
+            ["title"] = "**Varsitys AutoFarm**",
+            ["description"] = string.format("**Cash Info**\n\n**Starting Cash:** %s\n**Current Cash:** %s\n**Earned Cash:** %s",
+                formatCurrency(startingCash),
+                formatCurrency(dataFolder.Currency.Value),
+                formatCurrency(getgenv().cumulativeEarnedCash)
+            ),
+            ["color"] = 0x0088FF, -- Blue color
+        }}
+    }
+
+    local response = request({
+        Url = Link,
+        Body = game:GetService("HttpService"):JSONEncode(data),
+        Method = "POST",
+        Headers = {["content-type"] = "application/json"}
+    })
+end
+
+-- Send the initial webhook
+sendWebhook()
+
+-- Schedule sending webhooks every 5 seconds
+game:GetService("RunService").Stepped:Connect(function()
+    local currentTime = tick()
+    if currentTime - (getgenv().lastWebhookTime or 0) >= 5 then
+        sendWebhook()
+        getgenv().lastWebhookTime = currentTime
+    end
+end)
