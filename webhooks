@@ -19,8 +19,9 @@ local dataFolder = player:WaitForChild("DataFolder")
 -- Initialize cumulativeEarnedCash to 0 if not already set
 getgenv().cumulativeEarnedCash = getgenv().cumulativeEarnedCash or 0
 
--- Initialize starting time
+-- Initialize starting time and lastWebhookTime
 getgenv().startTime = getgenv().startTime or tick()
+getgenv().lastWebhookTime = getgenv().startTime
 
 -- Function to calculate and send Discord webhook
 local function sendWebhook()
@@ -63,7 +64,7 @@ getgenv().startingCash = dataFolder.Currency.Value
 -- Schedule sending webhooks based on the specified delay
 game:GetService("RunService").Heartbeat:Connect(function()
     local currentTime = tick()
-    if currentTime - (getgenv().lastWebhookTime or 0) >= (getgenv().webhookdelay * 60) then
+    if currentTime - getgenv().lastWebhookTime >= (getgenv().webhookdelay * 60) then
         sendWebhook()
         getgenv().lastWebhookTime = currentTime
     end
