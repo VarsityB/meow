@@ -1,24 +1,30 @@
-local TTS = Instance.new("UIStroke", TOOLTIP)
-local HPT = Instance.new("TextLabel")
-local EMPTY2 = EMPTY:Clone()
-EMPTY2.Parent = ScrollingFrame
-EMPTY2.Text = ""
-EMPTY2.LayoutOrder = 10
-EMPTY2.Size = UDim2.new(1, 0, 0, 25) 
-TTS.Color = Color3.fromRGB(50, 12, 72)
-TTS.Transparency = 0.65
-HPT.BackgroundTransparency = 1 
-HPT.Font = Enum.Font.RobotoMono
-HPT.TextColor3 = Color3.fromRGB(1, 1, 1)
-HPT.TextTransparency = 0.3
-HPT.Text = "100/100"
-HPT.TextSize = 15
-HPT.Parent = HPH 
-HPT.Size = UDim2.new(1, 0, 1, 0)
-TOOLTIP.BackgroundTransparency = 0.2
-SG.IgnoreGuiInset = true 
-MS.Parent = M
-USER.Text = "| Username - @CZXPEK"
+--// 1/9/2024 - added an antisit 
+--// 1/7/2024 - changed some stuff dm if broken
+
+
+--[[ 
+
+releasing this as opensource because obfuscation can mess with the performance and shit
+if you skid from this atleast credit me or something
+this is coded poorly btw
+
+]]
+
+if (_G.EXC ~= nil) then
+	warn("already executed")
+	return 
+else 
+	_G.EXC = "@trans"
+end
+
+
+if (not game:IsLoaded()) then 
+	game.Loaded:Wait()
+	task.wait(1)
+end
+
+
+repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
 --SG.Enabled = false
 
