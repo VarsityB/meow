@@ -27,6 +27,7 @@ end
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
 
+
 --SG.Enabled = false
 
 local UIS = game:GetService("UserInputService")
