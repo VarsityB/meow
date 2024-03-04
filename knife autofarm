@@ -26,16 +26,6 @@ end
 
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
-MH.Name = "MH"
-MH.Parent = DOWN;
-MH.AnchorPoint = Vector2.new(0.5, 0.5)
-MH.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-MH.BackgroundTransparency = 1.000;
-MH.BorderColor3 = Color3.fromRGB(0, 0, 0)
-MH.BorderSizePixel = 0;
-MH.LayoutOrder = 1;
-MH.Position = UDim2.new(0.5, 0, 0.5, 0)
-MH.Size = UDim2.new(1, -6, 1, -8)
 MAP.Name = "MAP"
 MAP.Parent = MH;
 MAP.AnchorPoint = Vector2.new(0.5, 0.5)
