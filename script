@@ -324,11 +324,6 @@ local Update = function()
 				game:GetService("TweenService"):Create(HP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Size = (UDim2.new(math.max(math.floor(v.Humanoid.Health)/100, 0), 0, 1, 0))}):Play()
 				
 			end
-		else 
-			Log("Searching For Atms")
-		end
-	end
-end
 
 local GetCashier = function()
 	local Cashier, Index = nil, 0
@@ -448,7 +443,7 @@ task.spawn(function()
 			local Root, Hum = Player.Character:WaitForChild("HumanoidRootPart"), Player.Character:WaitForChild("Humanoid")
 			local Start = os.time()
 			repeat 
-				Player.Character.HumanoidRootPart.CFrame = CFrame.new(177.95591735839844, 12.775212287902832, 64.2572021484375)
+				Player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 200, 0)
 				EMPTY.Text = "| Finding ATM."
 				
 				Cashier, Dist, Index = GetCashier() 
