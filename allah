@@ -1,29 +1,36 @@
 --// 1/9/2024 - added an antisit 
 --// 1/7/2024 - changed some stuff dm if broken
 
-
 --[[ 
 
 releasing this as opensource because obfuscation can mess with the performance and shit
-if you skid from this atleast credit me or something
+if you skid from this at least credit me or something
 this is coded poorly btw
 
 ]]
 
 if (_G.EXC ~= nil) then
-	warn("already executed")
-	return 
+    warn("already executed")
+    return 
 else 
-	_G.EXC = "@trans"
+    _G.EXC = "@trans"
 end
-
 
 if (not game:IsLoaded()) then 
-	game.Loaded:Wait()
-	task.wait(1)
+    game.Loaded:Wait()
+    task.wait(1)
 end
 
-repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
+local BG = Instance.new("Frame")
+local B = Instance.new("Folder")
+local M = Instance.new("Frame")
+local MC = Instance.new("UICorner")
+local ML = Instance.new("Frame")
+local UP = Instance.new("Frame")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UPL = Instance.new("UIListLayout")
+local UPP = Instance.new("UIPadding")
+local BROKEN = Instance.new("TextLabel")
 
 BG.Rotation = 90;
 BG.Name = "BG"
@@ -87,6 +94,7 @@ BROKEN.LayoutOrder = 6;
 BROKEN.Size = UDim2.new(1, 0, 0, 17)
 BROKEN.Font = Enum.Font.RobotoMono;
 BROKEN.Text = "| ATMs - 999"
+
 BROKEN.TextColor3 = Color3.fromRGB(101, 44, 180)
 BROKEN.TextScaled = true;
 BROKEN.TextSize = 17.000;
