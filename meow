@@ -1,20 +1,8 @@
---// 1/9/2024 - added an antisit 
---// 1/7/2024 - changed some stuff dm if broken
-
-
---[[ 
-
-releasing this as opensource because obfuscation can mess with the performance and shit
-if you skid from this atleast credit me or something
-this is coded poorly btw
-
-]]
-
 if (_G.EXC ~= nil) then
-	warn("already executed")
+	warn("already executed dumb nika")
 	return 
 else 
-	_G.EXC = "@trans"
+	_G.EXC = "Varsity Punch"
 end
 
 
@@ -740,6 +728,14 @@ B.BackgroundTransparency = 1
 B.BackgroundColor3 = Color3.new()  -- Set the background color to a fully transparent color
 
 -- Set transparency for individual elements within the ScrollingFrame
+B.BackgroundTransparency = 1
+M.BackgroundTransparency = 1
+MC.BackgroundTransparency = 1
+ML.BackgroundTransparency = 1
+UP.BackgroundTransparency = 1
+ScrollingFrame.BackgroundTransparency = 1
+UPL.BackgroundTransparency = 1
+UPP.BackgroundTransparency = 1
 BROKEN.BackgroundTransparency = 1
 EMPTY.BackgroundTransparency = 1
 PROFIT.BackgroundTransparency = 1
@@ -747,6 +743,10 @@ TIMER.BackgroundTransparency = 1
 TITLE.BackgroundTransparency = 1
 WALLET.BackgroundTransparency = 1
 USER.BackgroundTransparency = 1
+DOWN.BackgroundTransparency = 1
+MH.BackgroundTransparency = 1
+MAP.BackgroundTransparency = 1
+P27.BackgroundTransparency = 1
 
 -- Your existing code...
 
