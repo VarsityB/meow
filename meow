@@ -920,7 +920,7 @@ local Attack = function()
 		end
 
 		if (Player.Backpack:FindFirstChild("[Knife]") == nil) and (Player.Character:FindFirstChild("[Knife]") == nil) then 
-			Log("buying knife.")
+			Log("Purchasing Knife Tool")
 			
 			EMPTY.Text = "| Buying knife."
 
@@ -969,13 +969,12 @@ task.spawn(function()
 			local Start = os.time()
 			repeat 
 				Player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 500, 0)
-				EMPTY.Text = "| Finding ATM."
+				EMPTY.Text = "Looking For Cash"
 				
 				Cashier, Dist, Index = GetCashier() 
 				task.wait()
 			until (Cashier ~= nil) or (IsDead() == true) or (Shutdown == true) 
 			EMPTY.Text = "|"
-			Log("found atm "..tostring(Index)..", distance: "..tostring(Dist)..".")
 			
 			if (Unarresting == true) then 
 				EMPTY.Text = "| Uncuffing."
