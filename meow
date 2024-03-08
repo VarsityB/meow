@@ -26,6 +26,7 @@ repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:G
 loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
 
 local SG = Instance.new("ScreenGui")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
 local B = Instance.new("Frame")
 local BG = Instance.new("UIGradient")
 local M = Instance.new("Frame")
