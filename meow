@@ -152,9 +152,9 @@ TITLE.Size = UDim2.new(1, 0, 0.1, 0)
 TITLE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 TITLE.BackgroundTransparency = 1
 TITLE.Font = Enum.Font.SourceSans
-TITLE.Text = "Varsity"
+TITLE.Text = "Script Hub"
 TITLE.TextColor3 = Color3.fromRGB(255, 255, 255)
-TITLE.TextSize = 60
+TITLE.TextSize = 30
 TITLE.TextStrokeTransparency = 0
 TITLE.TextWrapped = true
 TITLE.TextXAlignment = Enum.TextXAlignment.Left
@@ -275,6 +275,10 @@ local Shutdown = false
 local Unarresting = false
 local LastLog = os.time()+3
 local BrokenATMs = 0
+
+local Log = function(Msg)
+	print(os.date("%X").." | iku autofarm - "..Msg)
+end
 
 local IsDead = function()
 	return (Player.Character:FindFirstChild("Humanoid") == nil) or (Player.Character.Humanoid.Health <= 0)
@@ -445,7 +449,7 @@ task.spawn(function()
 			local Start = os.time()
 			repeat 
 				Player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 500, 0)
-				EMPTY.Text = "Looking for Money"
+				EMPTY.Text = "| Finding ATM."
 				
 				Cashier, Dist, Index = GetCashier() 
 				task.wait()
