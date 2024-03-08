@@ -4,16 +4,17 @@
 
 --[[ 
 
-]]
+releasing this as opensource because obfuscation can mess with the performance and shit
+if you skid from this atleast credit me or something
+this is coded poorly btw
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/rendering"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/Autofarm/main/destory%20map"))()
+]]
 
 if (_G.EXC ~= nil) then
 	warn("already executed")
 	return 
 else 
-	_G.EXC = "BLM"
+	_G.EXC = "@trans"
 end
 
 
@@ -747,7 +748,7 @@ TITLE.BackgroundTransparency = 1
 WALLET.BackgroundTransparency = 1
 USER.BackgroundTransparency = 1
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
+-- Your existing code...
 
 --SG.Enabled = false
 
