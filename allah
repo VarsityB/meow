@@ -196,6 +196,7 @@ USER.TextSize = 17.000;
 USER.TextStrokeColor3 = Color3.fromRGB(115, 0, 255)
 USER.TextWrapped = true;
 USER.TextXAlignment = Enum.TextXAlignment.Left;
+
 DOWN.Name = "DOWN"
 DOWN.Parent = M;
 DOWN.AnchorPoint = Vector2.new(0.5, 1)
