@@ -325,7 +325,7 @@ local Update = function()
 				
 			end
 		else 
-			Log("error finding P-"..tostring(i)..".")
+			Log("Searching For Atms")
 		end
 	end
 end
@@ -448,8 +448,8 @@ task.spawn(function()
 			local Root, Hum = Player.Character:WaitForChild("HumanoidRootPart"), Player.Character:WaitForChild("Humanoid")
 			local Start = os.time()
 			repeat 
-				Player.Character.HumanoidRootPart.CFrame = CFrame(177.95591735839844, 12.775212287902832, 64.2572021484375)
-				EMPTY.Text = "Idle"
+				Player.Character.HumanoidRootPart.CFrame = CFrame.new(177.95591735839844, 12.775212287902832, 64.2572021484375)
+				EMPTY.Text = "| Finding ATM."
 				
 				Cashier, Dist, Index = GetCashier() 
 				task.wait()
