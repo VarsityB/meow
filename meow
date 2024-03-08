@@ -739,15 +739,7 @@ USER.Text = "| Username - @CZXPEK"
 B.BackgroundTransparency = 1
 B.BackgroundColor3 = Color3.new()  -- Set the background color to a fully transparent color
 
--- Set BackgroundTransparency for relevant elements
-B.BackgroundTransparency = 1
-M.BackgroundTransparency = 1
-MC.BackgroundTransparency = 1
-ML.BackgroundTransparency = 1
-UP.BackgroundTransparency = 1
-ScrollingFrame.BackgroundTransparency = 1
-UPL.BackgroundTransparency = 1
-UPP.BackgroundTransparency = 1
+-- Set transparency for individual elements within the ScrollingFrame
 BROKEN.BackgroundTransparency = 1
 EMPTY.BackgroundTransparency = 1
 PROFIT.BackgroundTransparency = 1
@@ -755,14 +747,8 @@ TIMER.BackgroundTransparency = 1
 TITLE.BackgroundTransparency = 1
 WALLET.BackgroundTransparency = 1
 USER.BackgroundTransparency = 1
-DOWN.BackgroundTransparency = 1
-MH.BackgroundTransparency = 1
-MAP.BackgroundTransparency = 1
-P27.BackgroundTransparency = 1
-
 
 -- Your existing code...
-
 
 --SG.Enabled = false
 
