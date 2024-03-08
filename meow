@@ -14,7 +14,7 @@ if (_G.EXC ~= nil) then
 	warn("already executed")
 	return 
 else 
-	_G.EXC = "@trans"
+	_G.EXC = "VARSITY AUTO FARM"
 end
 
 
@@ -769,15 +769,6 @@ Player.Idled:Connect(function()
 	end
 end)
 
-for i = 1, 10 do 
-	setfpscap(tonumber(_G.AutofarmSettings.Fps))
-	task.wait(0.1)
-end
-
-game:GetService("RunService"):Set3dRenderingEnabled(false)
-pcall(function() UserSettings().GameSettings.MasterVolume = 0 end)
-pcall(function() settings().Rendering.QualityLevel = "Level01" end)
-
 task.spawn(function()
 	for i,v in pairs(workspace:GetDescendants()) do 
 		if (v:IsA("Seat") or (v:IsA("VehicleSeat"))) then 
@@ -883,8 +874,6 @@ local GetCloseCash = function()
 	return Am
 end
 
-local SendLog = loadstring(game:HttpGet("https://github.com/applless/RandomScripts/raw/main/Webhookk"))()
-
 local Attack = function()
 	local Mode = tonumber(_G.AutofarmSettings.AttackMode)
 
@@ -902,7 +891,7 @@ local Attack = function()
 		end
 
 		local Combat = Player.Character:FindFirstChild("Combat")
-		if (Combat == nil) then return Log("no combat tool found.") end
+		if (Combat == nil) then return Log("no combat found") end
 
 		Combat:Activate()
 
@@ -942,7 +931,7 @@ local Attack = function()
 		end
 
 		local Knife = Player.Character:FindFirstChild("[Knife]")
-		if (Knife == nil) then return Log("no knife tool found.") end
+		if (Knife == nil) then return Log("no knife found") end
 
 		Knife:Activate()
 		task.wait(0.1)
@@ -1078,19 +1067,6 @@ task.spawn(function()
 			if (Unarresting == nil) then 
 				Unarresting = false
 			end
-		end)
-		
-		task.spawn(function()
-			if (os.time() >= LastLog) then 
-				local s, e = pcall(function()
-					SendLog(_G.AutofarmSettings.Webhook, {Player.Name, Player.UserId, WALLET.Text, PROFIT.Text, TIMER.Text, BROKEN.Text, "| iku autofarm by @trans"})
-				end)
-				if (e) then 
-					Log("error while sending log:\n"..tostring(e).."\n")
-				end
-				LastLog = os.time()+((tonumber(_G.AutofarmSettings.LogInterval)*60) or 60)
-			end
-
 		end)
 		
 		task.spawn(function()
