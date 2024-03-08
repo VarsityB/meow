@@ -23,11 +23,8 @@ if (not game:IsLoaded()) then
 	task.wait(1)
 end
 
-
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
-
-}
 BG.Rotation = 90;
 BG.Name = "BG"
 BG.Parent = B;
