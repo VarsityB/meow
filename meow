@@ -1,5 +1,3 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/Autofarm/main/destory%20map"))()
-
 --// 1/9/2024 - added an antisit 
 --// 1/7/2024 - changed some stuff dm if broken
 
