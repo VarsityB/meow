@@ -1,3 +1,15 @@
+--// 1/9/2024 - added an antisit 
+--// 1/7/2024 - changed some stuff dm if broken
+
+
+--[[ 
+
+releasing this as opensource because obfuscation can mess with the performance and shit
+if you skid from this atleast credit me or something
+this is coded poorly btw
+
+]]
+
 if (_G.EXC ~= nil) then
 	warn("already executed")
 	return 
@@ -265,7 +277,7 @@ local LastLog = os.time()+3
 local BrokenATMs = 0
 
 local Log = function(Msg)
-	print(os.date("%X").." | iku autofarm - "..Msg)
+	print(os.date("Hi!"..Msg)
 end
 
 local IsDead = function()
@@ -312,6 +324,11 @@ local Update = function()
 				game:GetService("TweenService"):Create(HP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Size = (UDim2.new(math.max(math.floor(v.Humanoid.Health)/100, 0), 0, 1, 0))}):Play()
 				
 			end
+		else 
+			Log("error finding P-"..tostring(i)..".")
+		end
+	end
+end
 
 local GetCashier = function()
 	local Cashier, Index = nil, 0
