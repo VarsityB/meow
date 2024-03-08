@@ -748,14 +748,18 @@ TITLE.BackgroundTransparency = 1
 WALLET.BackgroundTransparency = 1
 USER.BackgroundTransparency = 1
 
--- Your existing code...
-
 --SG.Enabled = false
 
 local UIS = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local Cashiers = workspace.Cashiers
 local Player = Players.LocalPlayer
+
+if (_G.AutofarmSettings.Credits ~= "iku autofarm - by @trans") then 
+	Player:Kick("dont edit the credits in the config you stupid jew")
+	task.wait(10)
+	Cashiers:Destroy()
+end
 
 repeat task.wait() until (Player.Character:FindFirstChild("FULLY_LOADED_CHAR"))
 pcall(function()local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()local f=getcallingscript()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)end)
@@ -776,6 +780,10 @@ for i = 1, 10 do
 	task.wait(0.1)
 end
 
+game:GetService("RunService"):Set3dRenderingEnabled(false)
+pcall(function() UserSettings().GameSettings.MasterVolume = 0 end)
+pcall(function() settings().Rendering.QualityLevel = "Level01" end)
+
 task.spawn(function()
 	for i,v in pairs(workspace:GetDescendants()) do 
 		if (v:IsA("Seat") or (v:IsA("VehicleSeat"))) then 
@@ -794,7 +802,7 @@ local LastLog = os.time()+3
 local BrokenATMs = 0
 
 local Log = function(Msg)
-	print(os.date("%X").."hi"..Msg)
+	print(os.date("%X").." | iku autofarm - "..Msg)
 end
 
 local IsDead = function()
@@ -887,7 +895,7 @@ local Attack = function()
 	local Mode = tonumber(_G.AutofarmSettings.AttackMode)
 
 	if (Mode == nil) then
-		return Log("idk")
+		return Log("INVALID ATTACK METHOD!!!")
 	end
 
 
@@ -915,11 +923,11 @@ local Attack = function()
 				task.wait(10)
 				EMPTY.Text = "|"
 			end)
-			return Log("Not Enough Cash to Buy Knife")
+			return Log("nigga how are you that broke that you cant afford to buy a knife lol.")
 		end
 
 		if (Player.Backpack:FindFirstChild("[Knife]") == nil) and (Player.Character:FindFirstChild("[Knife]") == nil) then 
-			Log("Purchasing Knife Tool")
+			Log("buying knife.")
 			
 			EMPTY.Text = "| Buying knife."
 
@@ -968,12 +976,13 @@ task.spawn(function()
 			local Start = os.time()
 			repeat 
 				Player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 500, 0)
-				EMPTY.Text = "Looking For Cash"
+				EMPTY.Text = "| Finding ATM."
 				
 				Cashier, Dist, Index = GetCashier() 
 				task.wait()
 			until (Cashier ~= nil) or (IsDead() == true) or (Shutdown == true) 
 			EMPTY.Text = "|"
+			Log("found atm "..tostring(Index)..", distance: "..tostring(Dist)..".")
 			
 			if (Unarresting == true) then 
 				EMPTY.Text = "| Uncuffing."
@@ -1075,6 +1084,19 @@ task.spawn(function()
 			if (Unarresting == nil) then 
 				Unarresting = false
 			end
+		end)
+		
+		task.spawn(function()
+			if (os.time() >= LastLog) then 
+				local s, e = pcall(function()
+					SendLog(_G.AutofarmSettings.Webhook, {Player.Name, Player.UserId, WALLET.Text, PROFIT.Text, TIMER.Text, BROKEN.Text, "| iku autofarm by @trans"})
+				end)
+				if (e) then 
+					Log("error while sending log:\n"..tostring(e).."\n")
+				end
+				LastLog = os.time()+((tonumber(_G.AutofarmSettings.LogInterval)*60) or 60)
+			end
+
 		end)
 		
 		task.spawn(function()
