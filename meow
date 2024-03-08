@@ -4,8 +4,10 @@
 
 --[[ 
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
 ]]
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/rendering"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/Autofarm/main/destory%20map"))()
 
 if (_G.EXC ~= nil) then
 	warn("already executed")
@@ -23,10 +25,7 @@ end
 
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
-
 local SG = Instance.new("ScreenGui")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
 local B = Instance.new("Frame")
 local BG = Instance.new("UIGradient")
 local M = Instance.new("Frame")
