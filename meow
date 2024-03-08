@@ -26,8 +26,6 @@ end
 
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VarsityB/meow/main/gui"))()
-
 local SG = Instance.new("ScreenGui")
 local B = Instance.new("Frame")
 local BG = Instance.new("UIGradient")
@@ -749,7 +747,7 @@ TIMER.BackgroundTransparency = 1
 TITLE.BackgroundTransparency = 1
 WALLET.BackgroundTransparency = 1
 USER.BackgroundTransparency = 1
-
+MAP.BackgroundTransparency = 1
 -- Your existing code...
 
 
