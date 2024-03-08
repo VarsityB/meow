@@ -267,19 +267,6 @@ task.spawn(function()
 	end
 end)
 
-
-local StartedWith = Player.DataFolder.Currency.Value
-local Cashier, Dist, Index = nil, 0, 0 
-local StartTick = os.time()
-local Shutdown = false
-local Unarresting = false
-local LastLog = os.time()+3
-local BrokenATMs = 0
-
-local Log = function(Msg)
-	print(os.date("%X").." | iku autofarm - "..Msg)
-end
-
 local IsDead = function()
 	return (Player.Character:FindFirstChild("Humanoid") == nil) or (Player.Character.Humanoid.Health <= 0)
 end
@@ -402,7 +389,7 @@ local Attack = function()
 		if (Player.Backpack:FindFirstChild("[Knife]") == nil) and (Player.Character:FindFirstChild("[Knife]") == nil) then 
 			Log("buying knife.")
 			
-			EMPTY.Text = "| Buying knife."
+			EMPTY.Text = "Buying knife."
 
 			repeat 
 				local KnifeBuy = workspace.Ignored.Shop["[Knife] - $159"]
@@ -449,12 +436,11 @@ task.spawn(function()
 			local Start = os.time()
 			repeat 
 				Player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 500, 0)
-				EMPTY.Text = "| Finding ATM."
 				
 				Cashier, Dist, Index = GetCashier() 
 				task.wait()
 			until (Cashier ~= nil) or (IsDead() == true) or (Shutdown == true) 
-			EMPTY.Text = "|"
+			EMPTY.Text = "Someone Killed You Or Arrested"
 			Log("found atm "..tostring(Index)..", distance: "..tostring(Dist)..".")
 			
 			if (Unarresting == true) then 
