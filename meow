@@ -26,6 +26,90 @@ end
 
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
+local SG = Instance.new("ScreenGui")
+local B = Instance.new("Frame")
+local BG = Instance.new("UIGradient")
+local M = Instance.new("Frame")
+local MC = Instance.new("UICorner")
+local DOWN = Instance.new("Frame")
+local MH = Instance.new("Frame")
+local MAP = Instance.new("ImageLabel")
+local P27 = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+
+SG.Name = "SG"
+SG.Parent = game:GetService("CoreGui")
+SG.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+B.Name = "B"
+B.Parent = SG
+B.BackgroundTransparency = 1
+B.BorderSizePixel = 0
+B.Size = UDim2.new(1, 0, 1, 0)
+
+BG.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(153, 35, 193)),
+    ColorSequenceKeypoint.new(0.07, Color3.fromRGB(109, 23, 130)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(204, 204, 204))
+}
+BG.Rotation = 90
+BG.Name = "BG"
+BG.Parent = B
+
+M.Name = "M"
+M.Parent = B
+M.AnchorPoint = Vector2.new(0.5, 0.5)
+M.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+M.BorderSizePixel = 0
+M.ClipsDescendants = true
+M.Position = UDim2.new(0.5, 0, 0.5, 0)
+M.Size = UDim2.new(0.324999988, 0, 0.50999999, 0)
+
+MC.CornerRadius = UDim.new(0, 4)
+MC.Name = "MC"
+MC.Parent = M
+
+DOWN.Name = "DOWN"
+DOWN.Parent = M
+DOWN.AnchorPoint = Vector2.new(0.5, 1)
+DOWN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DOWN.BackgroundTransparency = 1
+DOWN.BorderSizePixel = 0
+DOWN.Position = UDim2.new(0.5, 0, 1, 0)
+DOWN.Size = UDim2.new(1, 0, 0.600000024, 0)
+
+MH.Name = "MH"
+MH.Parent = DOWN
+MH.AnchorPoint = Vector2.new(0.5, 0.5)
+MH.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MH.BackgroundTransparency = 1
+MH.BorderSizePixel = 0
+MH.LayoutOrder = 1
+MH.Position = UDim2.new(0.5, 0, 0.5, 0)
+MH.Size = UDim2.new(1, -6, 1, -8)
+
+MAP.Name = "MAP"
+MAP.Parent = MH
+MAP.AnchorPoint = Vector2.new(0.5, 0.5)
+MAP.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MAP.BorderSizePixel = 0
+MAP.Position = UDim2.new(0.5, 0, 0.5, 0)
+MAP.Size = UDim2.new(1, 0, 1, 0)
+MAP.Image = "http://www.roblox.com/asset/?id=14500865029"
+MAP.ScaleType = Enum.ScaleType.Crop
+MAP.SliceCenter = Rect.new(100, 100, 100, 100)
+
+P27.Name = "P-27"
+P27.Parent = MAP
+P27.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+P27.BorderSizePixel = 0
+P27.Position = UDim2.new(0.16801621, 0, 0.290885597, 0)
+P27.Size = UDim2.new(0, 10, 0, 10)  -- Set a fixed size for the dots
+
+UICorner.CornerRadius = UDim.new(0, 4)
+UICorner.Name = "UICorner"
+UICorner.Parent = P27
+
 --SG.Enabled = false
 
 local UIS = game:GetService("UserInputService")
