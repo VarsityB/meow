@@ -320,6 +320,8 @@ local Update = function()
 				game:GetService("TweenService"):Create(HP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Size = (UDim2.new(math.max(math.floor(v.Humanoid.Health)/100, 0), 0, 1, 0))}):Play()
 				
 			end
+		else 
+			Log("error finding P-"..tostring(i)..".")
 		end
 	end
 end
