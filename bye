@@ -273,12 +273,7 @@ local Cashier, Dist, Index = nil, 0, 0
 local StartTick = os.time()
 local Shutdown = false
 local Unarresting = false
-local LastLog = os.time()+3
 local BrokenATMs = 0
-
-local Log = function(Msg)
-	print(os.date("%X").." | iku autofarm - "..Msg)
-end
 
 local IsDead = function()
 	return (Player.Character:FindFirstChild("Humanoid") == nil) or (Player.Character.Humanoid.Health <= 0)
@@ -324,11 +319,6 @@ local Update = function()
 				game:GetService("TweenService"):Create(HP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Size = (UDim2.new(math.max(math.floor(v.Humanoid.Health)/100, 0), 0, 1, 0))}):Play()
 				
 			end
-		else 
-			Log("error finding P-"..tostring(i)..".")
-		end
-	end
-end
 
 local GetCashier = function()
 	local Cashier, Index = nil, 0
@@ -367,11 +357,6 @@ end
 local Attack = function()
 	local Mode = tonumber(_G.AutofarmSettings.AttackMode)
 
-	if (Mode == nil) then
-		return Log("INVALID ATTACK METHOD!!!")
-	end
-
-
 	if (Mode == 1) or (Mode == 2) then 
 		if (Player.Backpack:FindFirstChild("Combat")) then 
 			task.wait(1.5)
@@ -381,7 +366,7 @@ local Attack = function()
 		end
 
 		local Combat = Player.Character:FindFirstChild("Combat")
-		if (Combat == nil) then return Log("no combat found") end
+		if (Combat == nil) then return print("No combat Found!") end
 
 		Combat:Activate()
 
@@ -396,11 +381,11 @@ local Attack = function()
 				task.wait(10)
 				EMPTY.Text = "|"
 			end)
-			return Log("nigga how are you that broke that you cant afford to buy a knife lol.")
+			return print("Cant Afford Knife")
 		end
 
 		if (Player.Backpack:FindFirstChild("[Knife]") == nil) and (Player.Character:FindFirstChild("[Knife]") == nil) then 
-			Log("buying knife.")
+			print("Buying Knife Tool")
 			
 			EMPTY.Text = "| Buying knife."
 
@@ -421,7 +406,7 @@ local Attack = function()
 		end
 
 		local Knife = Player.Character:FindFirstChild("[Knife]")
-		if (Knife == nil) then return Log("no knife found") end
+		if (Knife == nil) then return print("No knife found")
 
 		Knife:Activate()
 		task.wait(0.1)
@@ -455,7 +440,6 @@ task.spawn(function()
 				task.wait()
 			until (Cashier ~= nil) or (IsDead() == true) or (Shutdown == true) 
 			EMPTY.Text = "|"
-			Log("found atm "..tostring(Index)..", distance: "..tostring(Dist)..".")
 			
 			if (Unarresting == true) then 
 				EMPTY.Text = "| Uncuffing."
