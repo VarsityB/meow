@@ -317,7 +317,7 @@ local Update = function()
 				
 			end
 		else 
-			Log("error finding P-"..tostring(i)..".")
+			print("hi")
 		end
 	end
 end
