@@ -166,9 +166,9 @@ WALLET.Size = UDim2.new(1, 0, 0.2, 0)
 WALLET.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 WALLET.BackgroundTransparency = 1
 WALLET.Font = Enum.Font.SourceSans
-WALLET.Text = "Varsity"
+WALLET.Text = "Wallet: $0"
 WALLET.TextColor3 = Color3.fromRGB(255, 255, 255)
-WALLET.TextSize = 20
+WALLET.TextSize = 24
 WALLET.TextStrokeTransparency = 0
 WALLET.TextWrapped = true
 WALLET.TextXAlignment = Enum.TextXAlignment.Left
@@ -180,7 +180,7 @@ USER.Size = UDim2.new(1, 0, 0.2, 0)
 USER.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 USER.BackgroundTransparency = 1
 USER.Font = Enum.Font.SourceSans
-USER.Text = "Varsity"
+USER.Text = "User: "
 USER.TextColor3 = Color3.fromRGB(255, 255, 255)
 USER.TextSize = 24
 USER.TextStrokeTransparency = 0
@@ -268,6 +268,18 @@ task.spawn(function()
 end)
 
 
+local StartedWith = Player.DataFolder.Currency.Value
+local Cashier, Dist, Index = nil, 0, 0 
+local StartTick = os.time()
+local Shutdown = false
+local Unarresting = false
+local LastLog = os.time()+3
+local BrokenATMs = 0
+
+local Log = function(Msg)
+	print(os.date("%X").." | iku autofarm - "..Msg)
+end
+
 local IsDead = function()
 	return (Player.Character:FindFirstChild("Humanoid") == nil) or (Player.Character.Humanoid.Health <= 0)
 end
@@ -311,6 +323,9 @@ local Update = function()
 			
 				game:GetService("TweenService"):Create(HP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Size = (UDim2.new(math.max(math.floor(v.Humanoid.Health)/100, 0), 0, 1, 0))}):Play()
 				
+			end
+		else 
+			Log("error finding P-"..tostring(i)..".")
 		end
 	end
 end
@@ -353,7 +368,7 @@ local Attack = function()
 	local Mode = tonumber(_G.AutofarmSettings.AttackMode)
 
 	if (Mode == nil) then
-		return Log("INVALID")
+		return Log("INVALID ATTACK METHOD!!!")
 	end
 
 
@@ -381,7 +396,7 @@ local Attack = function()
 				task.wait(10)
 				EMPTY.Text = "|"
 			end)
-			return Log("cant afford knife")
+			return Log("nigga how are you that broke that you cant afford to buy a knife lol.")
 		end
 
 		if (Player.Backpack:FindFirstChild("[Knife]") == nil) and (Player.Character:FindFirstChild("[Knife]") == nil) then 
@@ -440,6 +455,7 @@ task.spawn(function()
 				task.wait()
 			until (Cashier ~= nil) or (IsDead() == true) or (Shutdown == true) 
 			EMPTY.Text = "|"
+			Log("found atm "..tostring(Index)..", distance: "..tostring(Dist)..".")
 			
 			if (Unarresting == true) then 
 				EMPTY.Text = "| Uncuffing."
