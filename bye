@@ -238,7 +238,7 @@ UIAspectRatioConstraint_2.Parent = P26
 -- (Continue with the rest of the elements)
 
 
---SG.Enabled = false
+--SG.Enabled = true
 
 local UIS = game:GetService("UserInputService")
 local Players = game:GetService("Players")
