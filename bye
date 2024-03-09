@@ -1,3 +1,243 @@
+ --// 1/9/2024 - added an antisit 
+--// 1/7/2024 - changed some stuff dm if broken
+
+
+--[[ 
+
+releasing this as opensource because obfuscation can mess with the performance and shit
+if you skid from this atleast credit me or something
+this is coded poorly btw
+
+]]
+
+if (_G.EXC ~= nil) then
+	warn("already executed")
+	return 
+else 
+	_G.EXC = "VARSITY AUTO FARM"
+end
+
+
+if (not game:IsLoaded()) then 
+	game.Loaded:Wait()
+	task.wait(1)
+end
+
+
+repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
+
+local SG = Instance.new("ScreenGui")
+SG.Name = "Gui"
+SG.Parent = game.Players.LocalPlayer.PlayerGui
+
+local B = Instance.new("Frame")
+B.Name = "Background"
+B.Parent = SG
+B.Position = UDim2.new(0, 0, 0, 0)
+B.Size = UDim2.new(1, 0, 1, 0)
+B.BackgroundTransparency = 1
+
+local BG = Instance.new("UIGradient")
+BG.Rotation = 45
+BG.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0.00, Color3.fromRGB(153, 35, 193)),
+	ColorSequenceKeypoint.new(0.07, Color3.fromRGB(109, 23, 130)),
+	ColorSequenceKeypoint.new(1.00, Color3.fromRGB(204, 204, 204))
+}
+BG.Parent = B
+
+local M = Instance.new("Frame")
+M.Name = "Main"
+M.Parent = B
+M.Position = UDim2.new(0.5, -200, 0.5, -150)
+M.Size = UDim2.new(0, 400, 0, 300)
+M.BackgroundTransparency = 1
+
+local MC = Instance.new("UICorner")
+MC.CornerRadius = UDim.new(0, 10)
+MC.Parent = M
+
+local ML = Instance.new("Frame")
+ML.Name = "MainLeft"
+ML.Parent = M
+ML.Position = UDim2.new(0, 0, 0, 0)
+ML.Size = UDim2.new(0, 160, 1, 0)
+ML.BackgroundTransparency = 1
+
+local UP = Instance.new("Frame")
+UP.Name = "UpperPanel"
+UP.Parent = ML
+UP.Position = UDim2.new(0, 0, 0, 0)
+UP.Size = UDim2.new(1, 0, 0.1, 0)
+UP.BackgroundTransparency = 1
+
+local ScrollingFrame = Instance.new("ScrollingFrame")
+ScrollingFrame.Name = "MenuList"
+ScrollingFrame.Parent = UP
+ScrollingFrame.Position = UDim2.new(0, 0, 0.1, 0)
+ScrollingFrame.Size = UDim2.new(1, 0, 0.9, 0)
+ScrollingFrame.BackgroundTransparency = 1
+
+local UPL = Instance.new("UIListLayout")
+UPL.Parent = ScrollingFrame
+UPL.SortOrder = Enum.SortOrder.LayoutOrder
+UPL.Padding = UDim.new(0, 5)
+UPL.FillDirection = Enum.FillDirection.Vertical
+
+local UPP = Instance.new("UIPadding")
+UPP.Parent = ScrollingFrame
+UPP.PaddingBottom = UDim.new(0, 5)
+UPP.PaddingTop = UDim.new(0, 5)
+
+local BROKEN = Instance.new("TextLabel")
+BROKEN.Name = "Varsity"
+BROKEN.Parent = ML
+BROKEN.Size = UDim2.new(1, 0, 0.05, 0)
+BROKEN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BROKEN.BackgroundTransparency = 1
+BROKEN.Font = Enum.Font.SourceSans
+BROKEN.Text = "Broken Scripts"
+BROKEN.TextColor3 = Color3.fromRGB(255, 255, 255)
+BROKEN.TextSize = 20
+BROKEN.TextStrokeTransparency = 0
+BROKEN.TextWrapped = true
+BROKEN.TextXAlignment = Enum.TextXAlignment.Left
+
+local EMPTY = Instance.new("TextLabel")
+EMPTY.Name = "Empty"
+EMPTY.Parent = ML
+EMPTY.Size = UDim2.new(1, 0, 0.05, 0)
+EMPTY.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+EMPTY.BackgroundTransparency = 1
+EMPTY.Font = Enum.Font.SourceSans
+EMPTY.Text = "Varsity"
+EMPTY.TextColor3 = Color3.fromRGB(255, 255, 255)
+EMPTY.TextSize = 20
+EMPTY.TextStrokeTransparency = 0
+EMPTY.TextWrapped = true
+EMPTY.TextXAlignment = Enum.TextXAlignment.Left
+
+local PROFIT = Instance.new("TextLabel")
+PROFIT.Name = "Profit"
+PROFIT.Parent = ML
+PROFIT.Size = UDim2.new(1, 0, 0.05, 0)
+PROFIT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PROFIT.BackgroundTransparency = 1
+PROFIT.Font = Enum.Font.SourceSans
+PROFIT.Text = "Varsity"
+PROFIT.TextColor3 = Color3.fromRGB(255, 255, 255)
+PROFIT.TextSize = 20
+PROFIT.TextStrokeTransparency = 0
+PROFIT.TextWrapped = true
+PROFIT.TextXAlignment = Enum.TextXAlignment.Left
+
+local TIMER = Instance.new("TextLabel")
+TIMER.Name = "Timer"
+TIMER.Parent = ML
+TIMER.Size = UDim2.new(1, 0, 0.05, 0)
+TIMER.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TIMER.BackgroundTransparency = 1
+TIMER.Font = Enum.Font.SourceSans
+TIMER.Text = "Varsity"
+TIMER.TextColor3 = Color3.fromRGB(255, 255, 255)
+TIMER.TextSize = 20
+TIMER.TextStrokeTransparency = 0
+TIMER.TextWrapped = true
+TIMER.TextXAlignment = Enum.TextXAlignment.Left
+
+local TITLE = Instance.new("TextLabel")
+TITLE.Name = "Title"
+TITLE.Parent = M
+TITLE.Size = UDim2.new(1, 0, 0.1, 0)
+TITLE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TITLE.BackgroundTransparency = 1
+TITLE.Font = Enum.Font.SourceSans
+TITLE.Text = "Varsity"
+TITLE.TextColor3 = Color3.fromRGB(255, 255, 255)
+TITLE.TextSize = 20
+TITLE.TextStrokeTransparency = 0
+TITLE.TextWrapped = true
+TITLE.TextXAlignment = Enum.TextXAlignment.Left
+
+local WALLET = Instance.new("TextLabel")
+WALLET.Name = "Wallet"
+WALLET.Parent = M
+WALLET.Size = UDim2.new(1, 0, 0.2, 0)
+WALLET.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+WALLET.BackgroundTransparency = 1
+WALLET.Font = Enum.Font.SourceSans
+WALLET.Text = "Wallet: $0"
+WALLET.TextColor3 = Color3.fromRGB(255, 255, 255)
+WALLET.TextSize = 24
+WALLET.TextStrokeTransparency = 0
+WALLET.TextWrapped = true
+WALLET.TextXAlignment = Enum.TextXAlignment.Left
+
+local USER = Instance.new("TextLabel")
+USER.Name = "User"
+USER.Parent = M
+USER.Size = UDim2.new(1, 0, 0.2, 0)
+USER.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+USER.BackgroundTransparency = 1
+USER.Font = Enum.Font.SourceSans
+USER.Text = "User: "
+USER.TextColor3 = Color3.fromRGB(255, 255, 255)
+USER.TextSize = 24
+USER.TextStrokeTransparency = 0
+USER.TextWrapped = true
+USER.TextXAlignment = Enum.TextXAlignment.Left
+
+local DOWN = Instance.new("Frame")
+DOWN.Name = "DownPanel"
+DOWN.Parent = ML
+DOWN.Position = UDim2.new(0, 0, 0.9, 0)
+DOWN.Size = UDim2.new(1, 0, 0.1, 0)
+DOWN.BackgroundTransparency = 1
+
+local MH = Instance.new("Frame")
+MH.Name = "MainHolder"
+MH.Parent = M
+MH.Position = UDim2.new(1, 0, 0, 0)
+MH.Size = UDim2.new(1, 0, 1, 0)
+MH.BackgroundTransparency = 1
+
+local MAP = Instance.new("ImageLabel")
+MAP.Name = "Map"
+MAP.Parent = MH
+MAP.Size = UDim2.new(1, 0, 1, 0)
+MAP.BackgroundTransparency = 1
+MAP.Image = "rbxassetid://6996358287"
+
+local P27 = Instance.new("Frame")
+P27.Name = "Pins"
+P27.Parent = MAP
+P27.Position = UDim2.new(0.512, 0, 0.454, 0)
+P27.Size = UDim2.new(0, 28, 0, 28)
+P27.BackgroundTransparency = 1
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(1, 0)
+UICorner.Parent = P27
+
+local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+UIAspectRatioConstraint.Parent = P27
+
+local P26 = Instance.new("Frame")
+P26.Name = "Pins"
+P26.Parent = MAP
+P26.Position = UDim2.new(0.402, 0, 0.215, 0)
+P26.Size = UDim2.new(0, 28, 0, 28)
+P26.BackgroundTransparency = 1
+
+local UICorner_2 = Instance.new("UICorner")
+UICorner_2.CornerRadius = UDim.new(1, 0)
+UICorner_2.Parent = P26
+
+local UIAspectRatioConstraint_2 = Instance.new("UIAspectRatioConstraint")
+UIAspectRatioConstraint_2.Parent = P26
+-- (Continue with the rest of the elements)
+
+
 --SG.Enabled = false
 
 local UIS = game:GetService("UserInputService")
@@ -51,6 +291,43 @@ end
 
 local ToCurrency = function(Num)
 	return tostring(Num):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
+end
+
+local Update = function()
+	USER.Text = "| Username - @"..Player.Name
+	WALLET.Text = "| Wallet - $"..ToCurrency(Player.DataFolder.Currency.Value)
+	PROFIT.Text = "| Profit - $"..ToCurrency(Player.DataFolder.Currency.Value - StartedWith)
+	TIMER.Text = "| Passed - "..string.format("%02i:%02i:%02i", (os.time()-StartTick)/60^2, (os.time()-StartTick)/60%60, (os.time()-StartTick)%60)
+	BROKEN.Text = "| ATMs - "..tostring(BrokenATMs)
+
+	for i,v in pairs(Cashiers:GetChildren()) do 
+		local Point = MAP:FindFirstChild("P-"..tostring(i))
+
+		if (Point) then 
+			if (v.Humanoid.Health > 0) then 
+				Point.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+			end
+
+			if (v.Humanoid.Health <= 0) then 
+				Point.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+			end
+
+			if (v == Cashier) then 
+				Point.BackgroundColor3 = Color3.fromRGB(200, 200, 0)
+
+				TOOLTIP.ZIndex = 10
+				TOOLTIP.Visible = true
+				game:GetService("TweenService"):Create(TOOLTIP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Position = Point.Position + UDim2.new(-0.008, 0, 0, 0)}):Play()
+				CURRATM.Text = "ATM "..tostring(i)
+				HPT.Text = tostring(math.floor(v.Humanoid.Health)).."/100"
+			
+				game:GetService("TweenService"):Create(HP, TweenInfo.new(0.33, Enum.EasingStyle.Quad), {Size = (UDim2.new(math.max(math.floor(v.Humanoid.Health)/100, 0), 0, 1, 0))}):Play()
+				
+			end
+		else 
+			Log("error finding P-"..tostring(i)..".")
+		end
+	end
 end
 
 local GetCashier = function()
