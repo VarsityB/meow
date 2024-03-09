@@ -268,18 +268,6 @@ task.spawn(function()
 end)
 
 
-local StartedWith = Player.DataFolder.Currency.Value
-local Cashier, Dist, Index = nil, 0, 0 
-local StartTick = os.time()
-local Shutdown = false
-local Unarresting = false
-local LastLog = os.time()+3
-local BrokenATMs = 0
-
-local Log = function(Msg)
-	print(os.date("%X").."idk"..Msg)
-end
-
 local IsDead = function()
 	return (Player.Character:FindFirstChild("Humanoid") == nil) or (Player.Character.Humanoid.Health <= 0)
 end
@@ -365,7 +353,7 @@ local Attack = function()
 	local Mode = tonumber(_G.AutofarmSettings.AttackMode)
 
 	if (Mode == nil) then
-		return Log("INVALID ATTACK METHOD!!!")
+		return Log("INVALID")
 	end
 
 
@@ -393,7 +381,7 @@ local Attack = function()
 				task.wait(10)
 				EMPTY.Text = "|"
 			end)
-			return Log("nigga how are you that broke that you cant afford to buy a knife lol.")
+			return Log("cant afford knife")
 		end
 
 		if (Player.Backpack:FindFirstChild("[Knife]") == nil) and (Player.Character:FindFirstChild("[Knife]") == nil) then 
@@ -452,7 +440,6 @@ task.spawn(function()
 				task.wait()
 			until (Cashier ~= nil) or (IsDead() == true) or (Shutdown == true) 
 			EMPTY.Text = "|"
-			Log("found atm "..tostring(Index)..", distance: "..tostring(Dist)..".")
 			
 			if (Unarresting == true) then 
 				EMPTY.Text = "| Uncuffing."
