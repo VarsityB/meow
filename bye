@@ -14,7 +14,7 @@ if (_G.EXC ~= nil) then
 	warn("already executed")
 	return 
 else 
-	_G.EXC = "VARSITY AUTO FARM"
+	_G.EXC = "@trans"
 end
 
 
@@ -235,6 +235,8 @@ UICorner_2.Parent = P26
 
 local UIAspectRatioConstraint_2 = Instance.new("UIAspectRatioConstraint")
 UIAspectRatioConstraint_2.Parent = P26
+
+-- (Continue with the rest of the elements)
 
 --SG.Enabled = false
 
