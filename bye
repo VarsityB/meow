@@ -273,12 +273,10 @@ local Cashier, Dist, Index = nil, 0, 0
 local StartTick = os.time()
 local Shutdown = false
 local Unarresting = false
-local LastLog = os.time()+3
+local LastLog = os.time()+0
 local BrokenATMs = 0
 
-local Log = function(Msg)
-	print(os.date("%X").." | iku autofarm - "..Msg)
-end
+local Log = print("Hello World!")
 
 local IsDead = function()
 	return (Player.Character:FindFirstChild("Humanoid") == nil) or (Player.Character.Humanoid.Health <= 0)
